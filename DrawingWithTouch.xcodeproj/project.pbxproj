@@ -26,9 +26,9 @@
 		32A0BC8F1A287B3200E4563F /* shape.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A0BC8B1A287B3200E4563F /* shape.png */; };
 		32A0BC901A287B3200E4563F /* shape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A0BC8C1A287B3200E4563F /* shape@2x.png */; };
 		32AC772B1AC0760900E2A1EB /* DrawView_GenerateBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 32AC772A1AC0760900E2A1EB /* DrawView_GenerateBezierPath.m */; };
-		32C6393B1A9377BC00ACD1B8 /* WILLCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32C6393A1A9377BC00ACD1B8 /* WILLCore.framework */; };
 		D02F589A1BE7042700882DA9 /* UIElementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F58981BE7042700882DA9 /* UIElementTableViewCell.m */; };
 		D02F589B1BE7042700882DA9 /* UIElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02F58991BE7042700882DA9 /* UIElementTableViewCell.xib */; };
+		D02F589D1BE7059C00882DA9 /* WILLCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02F589C1BE7059C00882DA9 /* WILLCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,10 +62,10 @@
 		32A0BC8C1A287B3200E4563F /* shape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shape@2x.png"; sourceTree = "<group>"; };
 		32AC77291AC0760900E2A1EB /* DrawView_GenerateBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawView_GenerateBezierPath.h; sourceTree = "<group>"; };
 		32AC772A1AC0760900E2A1EB /* DrawView_GenerateBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawView_GenerateBezierPath.m; sourceTree = "<group>"; };
-		32C6393A1A9377BC00ACD1B8 /* WILLCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WILLCore.framework; path = ../../WILLCore.framework; sourceTree = "<group>"; };
 		D02F58971BE7042700882DA9 /* UIElementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIElementTableViewCell.h; sourceTree = "<group>"; };
 		D02F58981BE7042700882DA9 /* UIElementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIElementTableViewCell.m; sourceTree = "<group>"; };
 		D02F58991BE7042700882DA9 /* UIElementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIElementTableViewCell.xib; sourceTree = "<group>"; };
+		D02F589C1BE7059C00882DA9 /* WILLCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WILLCore.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,8 +74,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				325AC40B1B37F2B3004A540B /* libz.dylib in Frameworks */,
+				D02F589D1BE7059C00882DA9 /* WILLCore.framework in Frameworks */,
 				32A0BC781A28748A00E4563F /* libc++.dylib in Frameworks */,
-				32C6393B1A9377BC00ACD1B8 /* WILLCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +87,7 @@
 			children = (
 				325AC40A1B37F2B3004A540B /* libz.dylib */,
 				32A0BC771A28748A00E4563F /* libc++.dylib */,
-				32C6393A1A9377BC00ACD1B8 /* WILLCore.framework */,
+				D02F589C1BE7059C00882DA9 /* WILLCore.framework */,
 				32A0BC4E1A28710200E4563F /* DrawingWithtTouch */,
 				328DA07019DA9AC10044AFAA /* Products */,
 			);
@@ -293,6 +293,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					./../..,
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -344,6 +345,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					./../..,
+					"$(PROJECT_DIR)",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
