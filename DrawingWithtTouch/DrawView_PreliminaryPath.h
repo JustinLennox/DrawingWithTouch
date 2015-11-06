@@ -32,6 +32,10 @@
 @property (strong, nonatomic) ISColorWheel *colorPicker;
 @property (strong, nonatomic) UIButton *closeColorPickerButton;
 
+@property (strong, nonatomic) UIButton *saveButton;
+@property (strong, nonatomic) UIButton *emailButton;
+@property (strong, nonatomic) UIButton *closeButton;
+
 //AttributesView
 @property (strong, nonatomic) UIView *currentView;
 @property (strong, nonatomic) TPKeyboardAvoidingScrollView *attributesScrollView;
@@ -43,6 +47,7 @@
 @property (strong, nonatomic) UITextField *fontSizeTextField;
 @property (strong, nonatomic) UIButton *increaseSizeButton;
 @property (strong, nonatomic) UIButton *decreaseSizeButton;
+@property (strong, nonatomic) UIButton *deleteButton;
 @property (nonatomic) BOOL changingTitle;
 @property (nonatomic) BOOL changingBackground;
 

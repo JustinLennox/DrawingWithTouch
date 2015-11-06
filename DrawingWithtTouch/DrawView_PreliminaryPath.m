@@ -9,6 +9,7 @@
 #import "DrawView_PreliminaryPath.h"
 #import <WILLCore/WILLCore.h>
 #import "MainViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DrawView_PreliminaryPath
 {
@@ -40,7 +41,7 @@
         
         [willContext setTarget:strokesLayer];
         [willContext clearColor:[UIColor clearColor]];
-        
+        self.backgroundColor = [UIColor whiteColor];
         [self refreshViewInRect:viewLayer.bounds];
         
         self.grayView = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -84,7 +85,7 @@
         addUI.numberOfTouchesRequired = 2;
         [self addGestureRecognizer:addUI];
         
-        UITapGestureRecognizer *optionTouch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showEmail:)];
+        UITapGestureRecognizer *optionTouch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOptions)];
         optionTouch.numberOfTouchesRequired = 3;
         [self addGestureRecognizer:optionTouch];
         
@@ -176,20 +177,51 @@
         [self.attributesView addSubview:self.fontSizeTextField];
         
         self.increaseSizeButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        self.increaseSizeButton.frame = CGRectMake(0, self.titleAttribute.frame.size.height + self.backgroundColorButton.frame.size.height + self.titleColorButton.frame.size.height + self.fontSizeTextField.frame.size.height, self.attributesView.frame.size.width * 0.5, self.attributesView.frame.size.height * 0.2);
+        self.increaseSizeButton.frame = CGRectMake(0, self.titleAttribute.frame.size.height + self.backgroundColorButton.frame.size.height + self.titleColorButton.frame.size.height + self.fontSizeTextField.frame.size.height, self.attributesView.frame.size.width * 0.333, self.attributesView.frame.size.height * 0.2);
         [self.increaseSizeButton addTarget:self action:@selector(increaseUISize) forControlEvents:UIControlEventTouchUpInside];
         [self.increaseSizeButton setTitle:@"+" forState:UIControlStateNormal];
         [self.increaseSizeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
         self.increaseSizeButton.titleLabel.adjustsFontSizeToFitWidth = true;
         [self.attributesView addSubview:self.increaseSizeButton];
+        
+        self.decreaseSizeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.decreaseSizeButton.frame = CGRectMake(CGRectGetMaxX(self.increaseSizeButton.frame), self.titleAttribute.frame.size.height + self.backgroundColorButton.frame.size.height + self.titleColorButton.frame.size.height + self.fontSizeTextField.frame.size.height, self.attributesView.frame.size.width * 0.333, self.attributesView.frame.size.height * 0.2);
+        [self.decreaseSizeButton addTarget:self action:@selector(decreaseUISize) forControlEvents:UIControlEventTouchUpInside];
+        [self.decreaseSizeButton setTitle:@"-" forState:UIControlStateNormal];
+        [self.decreaseSizeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+        self.decreaseSizeButton.titleLabel.adjustsFontSizeToFitWidth = true;
+        [self.attributesView addSubview:self.decreaseSizeButton];
+        
+        self.deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.deleteButton.frame = CGRectMake(CGRectGetMaxX(self.decreaseSizeButton.frame), self.titleAttribute.frame.size.height + self.backgroundColorButton.frame.size.height + self.titleColorButton.frame.size.height + self.fontSizeTextField.frame.size.height, self.attributesView.frame.size.width * 0.333, self.attributesView.frame.size.height * 0.2);
+        [self.deleteButton addTarget:self action:@selector(deleteUI) forControlEvents:UIControlEventTouchUpInside];
+        [self.deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        self.deleteButton.titleLabel.textColor = [UIColor redColor];
+        [self.deleteButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+        self.deleteButton.titleLabel.adjustsFontSizeToFitWidth = true;
+        [self.attributesView addSubview:self.deleteButton];
 //
-//        self.fontSizePicker = [[UIDownPicker alloc] initWithData:[NSMutableArray arrayWithArray:@[@"0", @"5", @"10", @"15", @"20", @"25", @"30", @"35", @"40", @"45", @"50"]]];
-//        self.fontSizePicker.frame = CGRectMake(0, self.titleAttribute.frame.size.height + self.backgroundColorButton.frame.size.height + self.titleColorButton.frame.size.height, self.attributesView.frame.size.width, self.attributesView.frame.size.height * 0.2);
-//        self.fontSizePicker.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0f];
-//        self.fontSizePicker.placeholder = @"Font Size";
-//        [self.fontSizePicker addTarget:self action:@selector(dp_Selected:) forControlEvents:UIControlEventValueChanged];
-//        [self.fontSizePicker addTarget:self action:@selector(dp_Selected:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.attributesView addSubview:self.fontSizePicker];
+        
+        self.saveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.saveButton.frame = CGRectMake(self.frame.size.width * 0.25f - 40, self.frame.size.height - 80, 80, 80);
+        [self.saveButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
+        [self.saveButton setBackgroundImage:[UIImage imageNamed:@"save.png"] forState:UIControlStateNormal];
+        self.saveButton.alpha = 0.0f;
+        [self addSubview:self.saveButton];
+        
+        self.emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.emailButton.frame = CGRectMake(self.frame.size.width * 0.50f - 40, self.frame.size.height - 80, 80, 80);
+        [self.emailButton addTarget:self action:@selector(showEmail:) forControlEvents:UIControlEventTouchUpInside];
+        [self.emailButton setBackgroundImage:[UIImage imageNamed:@"message.png"] forState:UIControlStateNormal];
+        self.emailButton.alpha = 0.0f;
+        [self addSubview:self.emailButton];
+        
+        self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.closeButton.frame = CGRectMake(self.frame.size.width * 0.75f - 25, self.frame.size.height - 65, 50, 50);
+        [self.closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+        [self.closeButton setBackgroundImage:[UIImage imageNamed:@"closeIcon.png"] forState:UIControlStateNormal];
+        self.closeButton.alpha = 0.0f;
+        [self addSubview:self.closeButton];
         
     }
     return self;
@@ -488,6 +520,13 @@
         cell = [[UIElementTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
         cell.elementLabel.adjustsFontSizeToFitWidth = true;
         cell.elementLabel.attributedText = attrString;
+        if(indexPath.row == 0){
+            cell.elementImageView.image = [UIImage imageNamed:@"ViewHolder.png"];
+        }else if(indexPath.row == 1){
+            cell.elementImageView.image = [UIImage imageNamed:@"LabelHolder.png"];
+        }else if(indexPath.row == 2){
+            cell.elementImageView.image = [UIImage imageNamed:@"ButtonHolder.png"];
+        }
         
     }
     
@@ -547,6 +586,17 @@
     longGesture.minimumPressDuration = 0.4f;
     longGesture.delegate = self;
     
+    int rand = arc4random() % 4;
+    UIColor *backColor;
+    if(rand == 0){
+        backColor = [UIColor colorWithRed:(52.0/255.0) green:(152.0/255.0) blue:(219.0/255.0) alpha:0.5f];
+    }else if(rand == 1){
+        backColor = [UIColor colorWithRed:(231.0/255.0) green:(76.0/255.0) blue:(60.0/255.0) alpha:0.5f];
+    }else if(rand == 2){
+        backColor = [UIColor colorWithRed:(26.0/255.0) green:(188.0/255.0) blue:(156.0/255.0) alpha:0.5f];
+    }else if(rand == 3){
+        backColor = [UIColor colorWithRed:(241.0/255.0) green:(196.0/255.0) blue:(15.0/255.0) alpha:0.5f];
+    }
     
     switch (self.elementNumber) {
             
@@ -554,7 +604,7 @@
         case 0:{
             UIView *drawView = [[UIView alloc] init];
             [drawView setFrame:uiFrame];
-            [drawView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+            [drawView setBackgroundColor:backColor];
             CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
             [drawView.backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
             drawView.tag = 100 + self.UIArray.count;
@@ -562,7 +612,7 @@
             [drawView addGestureRecognizer:panTouch];
             [drawView addGestureRecognizer:longGesture];
             [self addSubview:drawView];
-            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"view%lu",drawView.tag],
+            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"view%lu",(long)drawView.tag],
                                      @"type":@"UIView",
                                      @"backgroundColor":[NSString stringWithFormat:@"[UIColor colorWithRed:%f green:%f blue:%f alpha:%f]", red,green,blue,alpha],
                                      @"frame":[NSString stringWithFormat:@"CGRectMake(%f*self.view.frame.size.width,%f*self.view.frame.size.height,%f*self.view.frame.size.width,%f*self.view.frame.size.height)", adjustedX, adjustedY, adjustedWidth, adjustedHeight],
@@ -570,11 +620,10 @@
             [self.UIArray addObject:uiView];
             break;
         }
-            
             //Label
         case 1:{
             UILabel *drawLabel = [[UILabel alloc] initWithFrame:uiFrame];
-            drawLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+            drawLabel.backgroundColor = backColor;
             [drawLabel addGestureRecognizer:panTouch];
             [drawLabel addGestureRecognizer:longGesture];
             drawLabel.text = @"Label";
@@ -607,7 +656,7 @@
             [drawButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [drawButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
             [drawButton setFrame:uiFrame];
-            [drawButton setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+            [drawButton setBackgroundColor:backColor];
             drawButton.tag = 100 + self.UIArray.count;
             [drawButton addGestureRecognizer:attributesTouch];
             [self addSubview:drawButton];
@@ -637,6 +686,56 @@
 
 }
 
+#pragma mark - Options
+
+-(void)showOptions{
+    self.emailButton.alpha = 1.0f;
+    self.saveButton.alpha = 1.0f;
+    self.closeButton.alpha = 1.0f;
+}
+
+-(void)save{
+    self.emailButton.alpha = 0.0f;
+    self.saveButton.alpha = 0.0f;
+    self.closeButton.alpha = 0.0f;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+        UIGraphicsBeginImageContextWithOptions(self.window.bounds.size, NO, [UIScreen mainScreen].scale);
+    else
+        UIGraphicsBeginImageContext(self.window.bounds.size);
+    
+    [self.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    NSData * imgData = UIImagePNGRepresentation(image);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0]; //Get the docs directory
+    NSString *fName = [NSString stringWithFormat:@"%@.png", [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentTitle"]];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:fName];
+    //Add the file name
+    [imgData writeToFile:filePath atomically:YES]; //Write the file
+    
+    NSData *pngData = [NSData dataWithContentsOfFile:filePath];
+    UIImage *readImage = [UIImage imageWithData:pngData];
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"InkUps"]){
+        NSArray *inkUpArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"InkUps"];
+        NSMutableArray *copyArray = [NSMutableArray arrayWithArray:inkUpArray];
+        [copyArray addObject:@{@"title":[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentTitle"], @"image":pngData}];
+        [[NSUserDefaults standardUserDefaults] setObject:copyArray forKey:@"InkUps"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
+    }else{
+        NSArray *inkUpArray = @[@{@"title":[[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentTitle"], @"image":pngData}];
+        [[NSUserDefaults standardUserDefaults] setObject:inkUpArray forKey:@"InkUps"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+}
+
+-(void)close{
+    [self removeFromSuperview];
+    [self.mainController performSelector:@selector(reloadT) withObject:nil afterDelay:0.0f];
+}
+
 #pragma mark- Writing and Saving Text File
 
 -(void)createHeader{
@@ -658,7 +757,7 @@
         self.currentView = [self viewWithTag:[tag doubleValue]];
         
         float adjustedX = self.currentView.frame.origin.x/self.frame.size.width;
-        float adjustedY = self.currentView.frame.size.height;
+        float adjustedY = self.currentView.frame.origin.y/self.frame.size.height;
         float adjustedWidth = self.currentView.frame.size.width/self.frame.size.width;
         float adjustedHeight = self.currentView.frame.size.height/self.frame.size.height;
         
@@ -681,11 +780,15 @@
             NSLog(@"Current View:%@", tempLabel);
                 NSString *textLine = [NSString stringWithFormat:@"    %@.text = @\"%@\";", name, tempLabel.text];
                 combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textLine];
-            
                 [tempLabel.textColor getRed:&red green:&green blue:&blue alpha:&alpha];
                 NSString *textColor = [NSString stringWithFormat:@"[UIColor colorWithRed:%f green:%f blue:%f alpha:%f]", red,green,blue,alpha];
-                NSString *textColorString = [NSString stringWithFormat:@"    %@.textColor = @\"%@\";", name, textColor];
-            
+                NSString *textColorString = [NSString stringWithFormat:@"    %@.textColor = %@;", name, textColor];
+                combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textColorString];
+                NSString *textAlignmentString = [NSString stringWithFormat:@"    %@.textAlignment = NSTextAlignmentCenter;", name];
+                combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textAlignmentString];
+                NSString *textAdjustsString = [NSString stringWithFormat:@"    %@.adjustsFontSizeToFitWidth = true;", name];
+                combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textAdjustsString];
+
                 NSString *fontLine = [NSString stringWithFormat:@"    %@.font = [UIFont fontWithName:@\"Helvetica\" size:%f];", name, tempLabel.font.pointSize];
                 combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, fontLine];
             
@@ -696,8 +799,10 @@
             
             [tempButton.titleLabel.textColor getRed:&red green:&green blue:&blue alpha:&alpha];
             NSString *textColor = [NSString stringWithFormat:@"[UIColor colorWithRed:%f green:%f blue:%f alpha:%f]", red,green,blue,alpha];
-            NSString *textColorString = [NSString stringWithFormat:@"    %@.titleLabel.textColor = @\"%@\";", name, textColor];
+            NSString *textColorString = [NSString stringWithFormat:@"    %@.titleLabel.textColor = %@;", name, textColor];
             combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textColorString];
+            NSString *textAdjustsString = [NSString stringWithFormat:@"    %@.titleLabel.adjustsFontSizeToFitWidth = true;", name];
+            combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textAdjustsString];
             
             NSString *fontLine = [NSString stringWithFormat:@"    %@.titleLabel.font = [UIFont fontWithName:@\"Helvetica\" size:%f];", name, tempButton.titleLabel.font.pointSize];
             combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, fontLine];
@@ -744,11 +849,14 @@
 #pragma mark- Send Mail Attachment
 
 - (void)showEmail:(NSString*)file {
+    self.emailButton.alpha = 0.0f;
+    self.saveButton.alpha = 0.0f;
+    self.closeButton.alpha = 0.0f;
     
     [self createHeader];
     [self createImplementation];
 
-    NSString *emailTitle = @"InkUp Prototype";
+    NSString *emailTitle = [NSString stringWithFormat:@"%@ Prototype", [[NSUserDefaults standardUserDefaults] objectForKey:@"CurrentTitle"]];
     NSString *messageBody = @"Here's the InkUp for my prototype.";
     NSArray *toRecipents = [NSArray arrayWithObject:@""];
     
@@ -898,9 +1006,32 @@
             ui = uiDict;
         }
     }
-    float gnuWidth = self.currentView.frame.size.width *1.10;
-    float gnuHeight = self.currentView.frame.size.height * 1.10;
+    float gnuWidth = self.currentView.frame.size.width *1.05;
+    float gnuHeight = self.currentView.frame.size.height * 1.05;
     self.currentView.frame = CGRectMake(self.currentView.frame.origin.x, self.currentView.frame.origin.y, gnuWidth,gnuHeight);
+}
+
+-(void)decreaseUISize{
+    NSDictionary *ui = @{};
+    for(NSDictionary *uiDict in self.UIArray){
+        if(self.currentView.tag ==  [[uiDict objectForKey:@"tag"] intValue]){
+            ui = uiDict;
+        }
+    }
+    float gnuWidth = self.currentView.frame.size.width *0.95;
+    float gnuHeight = self.currentView.frame.size.height * 0.95;
+    self.currentView.frame = CGRectMake(self.currentView.frame.origin.x, self.currentView.frame.origin.y, gnuWidth,gnuHeight);
+}
+
+-(void)deleteUI{
+    NSDictionary *ui = @{};
+    for(NSDictionary *uiDict in self.UIArray){
+        if(self.currentView.tag ==  [[uiDict objectForKey:@"tag"] intValue]){
+            ui = uiDict;
+        }
+    }
+
+    self.currentView.frame = CGRectMake(-1000,-1000,0,0);
 }
 
 - (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer {

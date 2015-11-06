@@ -32,6 +32,17 @@
 		D0ED51101BECD62D000CCCC8 /* CustomUI.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED510F1BECD62D000CCCC8 /* CustomUI.m */; };
 		D0ED51151BECEE60000CCCC8 /* DownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED51121BECEE60000CCCC8 /* DownPicker.m */; };
 		D0ED51161BECEE60000CCCC8 /* UIDownPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED51141BECEE60000CCCC8 /* UIDownPicker.m */; };
+		D0ED512C1BED27A8000CCCC8 /* InkUpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0ED512A1BED27A8000CCCC8 /* InkUpTableViewCell.m */; };
+		D0ED512D1BED27A8000CCCC8 /* InkUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0ED512B1BED27A8000CCCC8 /* InkUpTableViewCell.xib */; };
+		D0ED512F1BED28DD000CCCC8 /* iPhone 6 Gold.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED512E1BED28DD000CCCC8 /* iPhone 6 Gold.png */; };
+		D0ED51351BED3B2E000CCCC8 /* halfphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED51341BED3B2E000CCCC8 /* halfphone.png */; };
+		D0ED51371BED3D08000CCCC8 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED51361BED3D08000CCCC8 /* save.png */; };
+		D0ED51391BED3D0D000CCCC8 /* message.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED51381BED3D0D000CCCC8 /* message.png */; };
+		D0ED513B1BED4261000CCCC8 /* LabelHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED513A1BED4261000CCCC8 /* LabelHolder.png */; };
+		D0ED513D1BED427D000CCCC8 /* ButtonHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED513C1BED427D000CCCC8 /* ButtonHolder.png */; };
+		D0ED513F1BED4289000CCCC8 /* ViewHolder.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED513E1BED4289000CCCC8 /* ViewHolder.png */; };
+		D0ED51441BED4823000CCCC8 /* quill4.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED51431BED4823000CCCC8 /* quill4.png */; };
+		D0ED51461BED48B7000CCCC8 /* quill.png in Resources */ = {isa = PBXBuildFile; fileRef = D0ED51451BED48B7000CCCC8 /* quill.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +83,18 @@
 		D0ED51121BECEE60000CCCC8 /* DownPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownPicker.m; sourceTree = "<group>"; };
 		D0ED51131BECEE60000CCCC8 /* UIDownPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDownPicker.h; sourceTree = "<group>"; };
 		D0ED51141BECEE60000CCCC8 /* UIDownPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDownPicker.m; sourceTree = "<group>"; };
+		D0ED51291BED27A8000CCCC8 /* InkUpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InkUpTableViewCell.h; sourceTree = "<group>"; };
+		D0ED512A1BED27A8000CCCC8 /* InkUpTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InkUpTableViewCell.m; sourceTree = "<group>"; };
+		D0ED512B1BED27A8000CCCC8 /* InkUpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InkUpTableViewCell.xib; sourceTree = "<group>"; };
+		D0ED512E1BED28DD000CCCC8 /* iPhone 6 Gold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 6 Gold.png"; sourceTree = "<group>"; };
+		D0ED51341BED3B2E000CCCC8 /* halfphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = halfphone.png; sourceTree = "<group>"; };
+		D0ED51361BED3D08000CCCC8 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
+		D0ED51381BED3D0D000CCCC8 /* message.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = message.png; sourceTree = "<group>"; };
+		D0ED513A1BED4261000CCCC8 /* LabelHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LabelHolder.png; sourceTree = "<group>"; };
+		D0ED513C1BED427D000CCCC8 /* ButtonHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonHolder.png; sourceTree = "<group>"; };
+		D0ED513E1BED4289000CCCC8 /* ViewHolder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ViewHolder.png; sourceTree = "<group>"; };
+		D0ED51431BED4823000CCCC8 /* quill4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = quill4.png; path = ../quill4.png; sourceTree = "<group>"; };
+		D0ED51451BED48B7000CCCC8 /* quill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = quill.png; path = ../quill.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +150,9 @@
 				32A0BC5C1A28710200E4563F /* Images.xcassets */,
 				32A0BC5E1A28710200E4563F /* LaunchScreen.xib */,
 				32A0BC4F1A28710200E4563F /* Supporting Files */,
+				D0ED51291BED27A8000CCCC8 /* InkUpTableViewCell.h */,
+				D0ED512A1BED27A8000CCCC8 /* InkUpTableViewCell.m */,
+				D0ED512B1BED27A8000CCCC8 /* InkUpTableViewCell.xib */,
 			);
 			path = DrawingWithtTouch;
 			sourceTree = "<group>";
@@ -134,22 +160,31 @@
 		32A0BC4F1A28710200E4563F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0ED513E1BED4289000CCCC8 /* ViewHolder.png */,
+				D0ED513A1BED4261000CCCC8 /* LabelHolder.png */,
+				D0ED513C1BED427D000CCCC8 /* ButtonHolder.png */,
+				D0ED512E1BED28DD000CCCC8 /* iPhone 6 Gold.png */,
 				D0ED51111BECEE60000CCCC8 /* DownPicker.h */,
 				D0ED51121BECEE60000CCCC8 /* DownPicker.m */,
 				D0ED51131BECEE60000CCCC8 /* UIDownPicker.h */,
 				D0ED51141BECEE60000CCCC8 /* UIDownPicker.m */,
 				D034BEC11BECD0850005E105 /* TPKeyboardAvoidingScrollView.h */,
+				D0ED51341BED3B2E000CCCC8 /* halfphone.png */,
 				D034BEC21BECD0850005E105 /* TPKeyboardAvoidingScrollView.m */,
 				D034BEC41BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
 				D034BEC51BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 				D034BEBE1BECC4A80005E105 /* ISColorWheel.h */,
 				D034BEBF1BECC4A80005E105 /* ISColorWheel.m */,
+				D0ED51361BED3D08000CCCC8 /* save.png */,
+				D0ED51381BED3D0D000CCCC8 /* message.png */,
 				D034BEB91BECC2B20005E105 /* closeIcon.png */,
 				D0421A6E1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png */,
 				32A0BC891A287B3200E4563F /* fill.png */,
 				32A0BC8A1A287B3200E4563F /* fill@2x.png */,
 				32A0BC8B1A287B3200E4563F /* shape.png */,
 				32A0BC8C1A287B3200E4563F /* shape@2x.png */,
+				D0ED51451BED48B7000CCCC8 /* quill.png */,
+				D0ED51431BED4823000CCCC8 /* quill4.png */,
 				32A0BC501A28710200E4563F /* Info.plist */,
 				32A0BC511A28710200E4563F /* main.m */,
 			);
@@ -212,16 +247,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0ED513B1BED4261000CCCC8 /* LabelHolder.png in Resources */,
 				32A0BC5B1A28710200E4563F /* Main.storyboard in Resources */,
+				D0ED512D1BED27A8000CCCC8 /* InkUpTableViewCell.xib in Resources */,
 				D034BEBA1BECC2B20005E105 /* closeIcon.png in Resources */,
+				D0ED512F1BED28DD000CCCC8 /* iPhone 6 Gold.png in Resources */,
+				D0ED51351BED3B2E000CCCC8 /* halfphone.png in Resources */,
+				D0ED513F1BED4289000CCCC8 /* ViewHolder.png in Resources */,
 				32A0BC8F1A287B3200E4563F /* shape.png in Resources */,
 				32A0BC901A287B3200E4563F /* shape@2x.png in Resources */,
 				32A0BC8D1A287B3200E4563F /* fill.png in Resources */,
 				32A0BC601A28710300E4563F /* LaunchScreen.xib in Resources */,
 				32A0BC8E1A287B3200E4563F /* fill@2x.png in Resources */,
 				D02F589B1BE7042700882DA9 /* UIElementTableViewCell.xib in Resources */,
+				D0ED51441BED4823000CCCC8 /* quill4.png in Resources */,
 				D0421A6F1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png in Resources */,
+				D0ED51371BED3D08000CCCC8 /* save.png in Resources */,
+				D0ED513D1BED427D000CCCC8 /* ButtonHolder.png in Resources */,
 				32A0BC5D1A28710200E4563F /* Images.xcassets in Resources */,
+				D0ED51391BED3D0D000CCCC8 /* message.png in Resources */,
+				D0ED51461BED48B7000CCCC8 /* quill.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +282,7 @@
 				D0ED51101BECD62D000CCCC8 /* CustomUI.m in Sources */,
 				32A0BC551A28710200E4563F /* AppDelegate.m in Sources */,
 				32A0BC521A28710200E4563F /* main.m in Sources */,
+				D0ED512C1BED27A8000CCCC8 /* InkUpTableViewCell.m in Sources */,
 				D02F589A1BE7042700882DA9 /* UIElementTableViewCell.m in Sources */,
 				D034BEC61BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				D0ED51161BECEE60000CCCC8 /* UIDownPicker.m in Sources */,
