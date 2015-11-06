@@ -102,13 +102,19 @@
         CGSize wheelSize = CGSizeMake(size.width * .8, size.width * .8);
         
         self.colorPicker = [[ISColorWheel alloc] initWithFrame:CGRectMake(size.width / 2 - wheelSize.width / 2,
-                                                                     size.height * .1,
+                                                                     size.height * .3,
                                                                      wheelSize.width,
                                                                      wheelSize.height)];
         self.colorPicker.alpha = 0.0f;
         self.colorPicker.delegate = self;
        self.colorPicker.continuous = true;
         [self addSubview:self.colorPicker];
+        
+        self.closeColorPickerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.closeColorPickerButton.frame = CGRectMake(0, 0, 50, 50);
+        [self.closeColorPickerButton addTarget:self action:@selector(hideColorWheel) forControlEvents:UIControlEventTouchUpInside];
+        [self.closeColorPickerButton setBackgroundImage:[UIImage imageNamed:@"closeIcon.png"] forState:UIControlStateNormal];
+        [self.colorPicker addSubview:self.closeColorPickerButton];
         
         self.attributesScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.frame];
         [self addSubview:self.attributesScrollView];
@@ -129,16 +135,61 @@
         [self.closeAttributesButton addTarget:self action:@selector(hideAttributesView) forControlEvents:UIControlEventTouchUpInside];
         [self.closeAttributesButton setBackgroundImage:[UIImage imageNamed:@"closeIcon.png"] forState:UIControlStateNormal];
         self.closeAttributesButton.alpha = 0.0f;
-        [self addSubview:self.closeAttributesButton];
+        [self.attributesScrollView addSubview:self.closeAttributesButton];
         
         self.titleAttribute = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.attributesView.frame.size.width, self.attributesView.frame.size.height * 0.2)];
         self.titleAttribute.delegate = self;
-        self.titleAttribute.font = [UIFont fontWithName:@"Helvetica" size:20.0f];
+        self.titleAttribute.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0f];
         self.titleAttribute.adjustsFontSizeToFitWidth = true;
+        self.titleAttribute.textColor = [UIColor blackColor];
+        [self.titleAttribute addTarget:self action:@selector(titleTextChanged) forControlEvents:UIControlEventEditingChanged];
         self.titleAttribute.placeholder = @"Title Text";
         self.titleAttribute.textAlignment = NSTextAlignmentCenter;
         self.titleAttribute.returnKeyType = UIReturnKeyDone;
         [self.attributesView addSubview:self.titleAttribute];
+        
+        self.backgroundColorButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.backgroundColorButton.frame = CGRectMake(0, self.titleAttribute.frame.size.height, self.attributesView.frame.size.width, self.attributesView.frame.size.height * 0.2);
+        [self.backgroundColorButton addTarget:self action:@selector(changeUIBackgroundColor) forControlEvents:UIControlEventTouchUpInside];
+        [self.backgroundColorButton setTitle:@"Background Color" forState:UIControlStateNormal];
+        [self.backgroundColorButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+        self.backgroundColorButton.titleLabel.adjustsFontSizeToFitWidth = true;
+        [self.attributesView addSubview:self.backgroundColorButton];
+        
+        self.titleColorButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.titleColorButton.frame = CGRectMake(0, self.titleAttribute.frame.size.height + self.backgroundColorButton.frame.size.height, self.attributesView.frame.size.width, self.attributesView.frame.size.height * 0.2);
+        [self.titleColorButton addTarget:self action:@selector(changeUITitleColor) forControlEvents:UIControlEventTouchUpInside];
+        [self.titleColorButton setTitle:@"Title Color" forState:UIControlStateNormal];
+        [self.titleColorButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+        self.titleColorButton.titleLabel.adjustsFontSizeToFitWidth = true;
+        [self.attributesView addSubview:self.titleColorButton];
+        
+        self.fontSizeTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, self.backgroundColorButton.frame.size.height + self.titleColorButton.frame.size.height + self.titleAttribute.frame.size.height, self.attributesView.frame.size.width, self.attributesView.frame.size.height * 0.2)];
+        self.fontSizeTextField.delegate = self;
+        self.fontSizeTextField.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0f];
+        self.fontSizeTextField.adjustsFontSizeToFitWidth = true;
+        self.fontSizeTextField.textColor = [UIColor blackColor];
+        [self.fontSizeTextField addTarget:self action:@selector(fontSizeChanged) forControlEvents:UIControlEventEditingChanged];
+        self.fontSizeTextField.placeholder = @"Font Size";
+        self.fontSizeTextField.textAlignment = NSTextAlignmentCenter;
+        self.fontSizeTextField.returnKeyType = UIReturnKeyDone;
+        [self.attributesView addSubview:self.fontSizeTextField];
+        
+        self.increaseSizeButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        self.increaseSizeButton.frame = CGRectMake(0, self.titleAttribute.frame.size.height + self.backgroundColorButton.frame.size.height + self.titleColorButton.frame.size.height + self.fontSizeTextField.frame.size.height, self.attributesView.frame.size.width * 0.5, self.attributesView.frame.size.height * 0.2);
+        [self.increaseSizeButton addTarget:self action:@selector(increaseUISize) forControlEvents:UIControlEventTouchUpInside];
+        [self.increaseSizeButton setTitle:@"+" forState:UIControlStateNormal];
+        [self.increaseSizeButton.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+        self.increaseSizeButton.titleLabel.adjustsFontSizeToFitWidth = true;
+        [self.attributesView addSubview:self.increaseSizeButton];
+//
+//        self.fontSizePicker = [[UIDownPicker alloc] initWithData:[NSMutableArray arrayWithArray:@[@"0", @"5", @"10", @"15", @"20", @"25", @"30", @"35", @"40", @"45", @"50"]]];
+//        self.fontSizePicker.frame = CGRectMake(0, self.titleAttribute.frame.size.height + self.backgroundColorButton.frame.size.height + self.titleColorButton.frame.size.height, self.attributesView.frame.size.width, self.attributesView.frame.size.height * 0.2);
+//        self.fontSizePicker.font = [UIFont fontWithName:@"Helvetica-Bold" size:20.0f];
+//        self.fontSizePicker.placeholder = @"Font Size";
+//        [self.fontSizePicker addTarget:self action:@selector(dp_Selected:) forControlEvents:UIControlEventValueChanged];
+//        [self.fontSizePicker addTarget:self action:@selector(dp_Selected:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.attributesView addSubview:self.fontSizePicker];
         
     }
     return self;
@@ -484,8 +535,18 @@
     float adjustedHeight = uiFrame.size.height/self.frame.size.height;
     
     
-    UITapGestureRecognizer *attributesTouch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAttributesView)];
+    UITapGestureRecognizer *attributesTouch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAttributesView:)];
     attributesTouch.numberOfTapsRequired = 2;
+    attributesTouch.delegate = self;
+    
+    UIPanGestureRecognizer *panTouch = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    panTouch.delegate = self;
+    
+    
+    UILongPressGestureRecognizer *longGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    longGesture.minimumPressDuration = 0.4f;
+    longGesture.delegate = self;
+    
     
     switch (self.elementNumber) {
             
@@ -493,11 +554,13 @@
         case 0:{
             UIView *drawView = [[UIView alloc] init];
             [drawView setFrame:uiFrame];
-            [drawView setBackgroundColor:[UIColor colorWithRed:0.2f green:0.4f blue:0.2f alpha:0.5f]];
+            [drawView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
             CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
             [drawView.backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
             drawView.tag = self.UIArray.count;
             [drawView addGestureRecognizer:attributesTouch];
+            [drawView addGestureRecognizer:panTouch];
+            [drawView addGestureRecognizer:longGesture];
             [self addSubview:drawView];
             NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"view%lu",(unsigned long)self.UIArray.count],
                                      @"type":@"UIView",
@@ -511,10 +574,12 @@
             //Label
         case 1:{
             UILabel *drawLabel = [[UILabel alloc] initWithFrame:uiFrame];
-            drawLabel.backgroundColor = [UIColor lightGrayColor];
+            drawLabel.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+            [drawLabel addGestureRecognizer:panTouch];
+            [drawLabel addGestureRecognizer:longGesture];
             drawLabel.text = @"Label";
-            drawLabel.alpha = 0.5f;
             drawLabel.userInteractionEnabled = true;
+            drawLabel.adjustsFontSizeToFitWidth = true;
             drawLabel.textAlignment = NSTextAlignmentCenter;
             drawLabel.textColor = [UIColor whiteColor];
             drawLabel.tag = self.UIArray.count;
@@ -535,12 +600,14 @@
         case 2:{
             UIButton *drawButton = [UIButton buttonWithType:UIButtonTypeSystem];
             [drawButton setTitle:@"Button" forState:UIControlStateNormal];
+            [drawButton addGestureRecognizer:panTouch];
+            [drawButton addGestureRecognizer:longGesture];
             drawButton.adjustsImageWhenHighlighted = true;
             [drawButton setBackgroundImage:[self imageFromLayer:self.currentShapeLayer] forState:UIControlStateNormal];
             [drawButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [drawButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
             [drawButton setFrame:uiFrame];
-            [drawButton setBackgroundColor:[UIColor colorWithRed:0.33f green:0.20f blue:0.9f alpha:0.5f]];
+            [drawButton setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
             drawButton.tag = self.UIArray.count;
             [drawButton addGestureRecognizer:attributesTouch];
             [self addSubview:drawButton];
@@ -558,6 +625,16 @@
         default:
             break;
     }
+}
+
+-(void)handleLongPress: (UILongPressGestureRecognizer *)sender{
+    if(sender.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"Long press");
+        self.canMove = true;
+    }else if(sender.state == UIGestureRecognizerStateEnded) {
+        self.canMove = false;
+    }
+
 }
 
 #pragma mark- Writing and Saving Text File
@@ -697,12 +774,24 @@
 
 #pragma mark - Attributes
 
--(void)showAttributesView:(UIView *)sender{
-
+-(void)showAttributesView:(UIGestureRecognizer *)sender{
+    self.currentView = sender.view;
+    self.currentView.tag = sender.view.tag;
+    for(NSDictionary *ui in self.UIArray){
+        if(self.currentView.tag ==  [[ui objectForKey:@"tag"] intValue]){
+            if([ui objectForKey:@"text"]){
+                self.titleAttribute.text = [ui objectForKey:@"text"];
+            }else{
+                self.titleAttribute.text = @"No Title";
+            }
+        }
+    }
     self.attributesView.frame = CGRectMake(self.attributesView.frame.origin.x, CGRectGetMaxY(self.frame), self.attributesView.frame.size.width, self.attributesView.frame.size.height);
     self.closeAttributesButton.frame = CGRectMake(0, CGRectGetMaxY(self.frame), self.frame.size.width - 50, self.frame.size.height * 0.5f);
-    self.attributesScrollView.alpha = 1.0f;
+    self.attributesScrollView.alpha = 0.7;
+    self.attributesScrollView.backgroundColor = [UIColor blackColor];
     self.attributesView.alpha = 1.0f;
+    [self bringSubviewToFront:self.attributesScrollView];
     [self bringSubviewToFront:self.attributesView];
     [self bringSubviewToFront:self.closeAttributesButton];
     self.closeAttributesButton.alpha = 1.0f;
@@ -714,7 +803,7 @@
 
 -(void)hideAttributesView{
     self.attributesScrollView.alpha = 0.0f;
-
+    self.colorPicker.alpha = 0.0f;
     [UIView animateWithDuration:0.3 animations:^{
         self.attributesView.frame = CGRectMake(self.attributesView.frame.origin.x, CGRectGetMaxY(self.frame), self.attributesView.frame.size.width, self.attributesView.frame.size.height);
         self.closeAttributesButton.frame = CGRectMake(0, self.attributesView.frame.origin.y + 25, 50, 50);
@@ -727,18 +816,139 @@
     return true;
 }
 
+-(void)titleTextChanged{
+    for(NSDictionary *ui in self.UIArray){
+        if(self.currentView.tag ==  [[ui objectForKey:@"tag"] intValue]){
+            if([[ui objectForKey:@"type"] isEqualToString:@"UILabel"]){
+                UILabel *tempLabel = self.currentView;
+                tempLabel.text = self.titleAttribute.text;
+            }
+            if([[ui objectForKey:@"type"] isEqualToString:@"UIButton"]){
+                UIButton *tempButton = self.currentView;
+                [tempButton setTitle:self.titleAttribute.text forState:UIControlStateNormal];
+            }
+        }
+    }
+}
+
+-(void)changeUIBackgroundColor{
+    [self showColorWheel];
+    self.attributesView.alpha = 0.0f;
+    self.changingBackground = true;
+    self.changingTitle = false;
+}
+
+-(void)changeUITitleColor{
+    [self showColorWheel];
+    self.attributesView.alpha = 0.0f;
+    self.changingTitle = true;
+    self.changingBackground = false;
+}
+
+-(void)fontSizeChanged{
+    for(NSDictionary *ui in self.UIArray){
+        if(self.currentView.tag ==  [[ui objectForKey:@"tag"] intValue]){
+            if([[ui objectForKey:@"type"] isEqualToString:@"UILabel"]){
+                UILabel *tempLabel = self.currentView;
+                tempLabel.font = [UIFont fontWithName:@"Helvetica" size:[self.fontSizeTextField.text floatValue]];
+            }
+            if([[ui objectForKey:@"type"] isEqualToString:@"UIButton"]){
+                UIButton *tempButton = self.currentView;
+                tempButton.titleLabel.font = [UIFont fontWithName:@"Helvetica" size:[self.fontSizeTextField.text floatValue]];
+            }
+        }
+    }
+}
+
+-(void)increaseUISize{
+    NSDictionary *ui = @{};
+    for(NSDictionary *uiDict in self.UIArray){
+        if(self.currentView.tag ==  [[uiDict objectForKey:@"tag"] intValue]){
+            ui = uiDict;
+        }
+    }
+    float gnuWidth = self.currentView.frame.size.width *1.10;
+    float gnuHeight = self.currentView.frame.size.height * 1.10;
+    self.currentView.frame = CGRectMake(self.currentView.frame.origin.x, self.currentView.frame.origin.y, gnuWidth,gnuHeight);
+}
+
+- (IBAction)handlePan:(UIPanGestureRecognizer *)recognizer {
+    if(self.canMove){
+        CGPoint translation = [recognizer translationInView:self];
+        recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
+                                             recognizer.view.center.y + translation.y);
+        [recognizer setTranslation:CGPointMake(0, 0) inView:self];
+    }
+    
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return true;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && ! self.canMove) {
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark- Color Wheel
 
 - (void)colorWheelDidChangeColor:(ISColorWheel *)colorWheel
 {
+    NSDictionary *ui = @{};
+    for(NSDictionary *uiDict in self.UIArray){
+         if(self.currentView.tag ==  [[uiDict objectForKey:@"tag"] intValue]){
+             ui = uiDict;
+         }
+    }
+    NSLog(@"UI:%@", ui);
+    if([[ui objectForKey:@"type"] isEqualToString:@"UIView"]){
+        NSLog(@"View");
+        UIView *tempView = self.currentView;
+        if(self.changingBackground == true){
+            tempView.backgroundColor = self.colorPicker.currentColor;
+            
+        }
+    }
+
+    if([[ui objectForKey:@"type"] isEqualToString:@"UILabel"]){
+        NSLog(@"Label");
+        UILabel *tempLabel = self.currentView;
+        if(self.changingBackground == true){
+            tempLabel.backgroundColor = self.colorPicker.currentColor;
+        }else{
+            tempLabel.textColor = self.colorPicker.currentColor;
+        }
+    }
+    
+    if([[ui objectForKey:@"type"] isEqualToString:@"UIButton"]){
+        UIButton *tempButton = self.currentView;
+        if(self.changingBackground == true){
+            tempButton.backgroundColor = self.colorPicker.currentColor;
+        
+        }else{
+            tempButton.titleLabel.textColor = self.colorPicker.currentColor;
+        }
+    }
+
+    
 }
 
 -(void)hideColorWheel{
-    
+    self.colorPicker.alpha = 0.0f;
+    self.attributesView.alpha = 0.7f;
+    self.closeAttributesButton.alpha = 1.0f;
 }
 
 -(void)showColorWheel{
-    
+    self.colorPicker.alpha = 1.0f;
+    self.closeAttributesButton.alpha = 0.0f;
+    [self.colorPicker bringSubviewToFront:self.closeColorPickerButton];
+    [self bringSubviewToFront:self.closeColorPickerButton];
+    [self bringSubviewToFront:self.colorPicker];
 }
 
 @end
