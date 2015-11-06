@@ -24,6 +24,10 @@
 		D02F589B1BE7042700882DA9 /* UIElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02F58991BE7042700882DA9 /* UIElementTableViewCell.xib */; };
 		D02F589D1BE7059C00882DA9 /* WILLCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02F589C1BE7059C00882DA9 /* WILLCore.framework */; };
 		D034BE5B1BEC8C500005E105 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D034BE5A1BEC8C500005E105 /* MessageUI.framework */; };
+		D034BEBA1BECC2B20005E105 /* closeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D034BEB91BECC2B20005E105 /* closeIcon.png */; };
+		D034BEC01BECC4A80005E105 /* ISColorWheel.m in Sources */ = {isa = PBXBuildFile; fileRef = D034BEBF1BECC4A80005E105 /* ISColorWheel.m */; };
+		D034BEC31BECD0850005E105 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D034BEC21BECD0850005E105 /* TPKeyboardAvoidingScrollView.m */; };
+		D034BEC61BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D034BEC51BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		D0421A6F1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = D0421A6E1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +55,13 @@
 		D02F58991BE7042700882DA9 /* UIElementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIElementTableViewCell.xib; sourceTree = "<group>"; };
 		D02F589C1BE7059C00882DA9 /* WILLCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WILLCore.framework; sourceTree = "<group>"; };
 		D034BE5A1BEC8C500005E105 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		D034BEB91BECC2B20005E105 /* closeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeIcon.png; sourceTree = "<group>"; };
+		D034BEBE1BECC4A80005E105 /* ISColorWheel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISColorWheel.h; path = ../ISColorWheel.h; sourceTree = "<group>"; };
+		D034BEBF1BECC4A80005E105 /* ISColorWheel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ISColorWheel.m; path = ../ISColorWheel.m; sourceTree = "<group>"; };
+		D034BEC11BECD0850005E105 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		D034BEC21BECD0850005E105 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		D034BEC41BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		D034BEC51BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		D0421A6E1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2015-11-04 at 3.17.00 AM.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +123,13 @@
 		32A0BC4F1A28710200E4563F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D034BEC11BECD0850005E105 /* TPKeyboardAvoidingScrollView.h */,
+				D034BEC21BECD0850005E105 /* TPKeyboardAvoidingScrollView.m */,
+				D034BEC41BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				D034BEC51BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				D034BEBE1BECC4A80005E105 /* ISColorWheel.h */,
+				D034BEBF1BECC4A80005E105 /* ISColorWheel.m */,
+				D034BEB91BECC2B20005E105 /* closeIcon.png */,
 				D0421A6E1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png */,
 				32A0BC891A287B3200E4563F /* fill.png */,
 				32A0BC8A1A287B3200E4563F /* fill@2x.png */,
@@ -180,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32A0BC5B1A28710200E4563F /* Main.storyboard in Resources */,
+				D034BEBA1BECC2B20005E105 /* closeIcon.png in Resources */,
 				32A0BC8F1A287B3200E4563F /* shape.png in Resources */,
 				32A0BC901A287B3200E4563F /* shape@2x.png in Resources */,
 				32A0BC8D1A287B3200E4563F /* fill.png in Resources */,
@@ -198,11 +217,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D034BEC31BECD0850005E105 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				32A0BC581A28710200E4563F /* MainViewController.m in Sources */,
 				32A0BC551A28710200E4563F /* AppDelegate.m in Sources */,
 				32A0BC521A28710200E4563F /* main.m in Sources */,
 				D02F589A1BE7042700882DA9 /* UIElementTableViewCell.m in Sources */,
+				D034BEC61BECD10C0005E105 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				32A0BC851A287AC500E4563F /* DrawView_PreliminaryPath.m in Sources */,
+				D034BEC01BECC4A80005E105 /* ISColorWheel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -43,21 +43,51 @@
         
         [self refreshViewInRect:viewLayer.bounds];
         
-        self.tableView = [[UITableView alloc] initWithFrame:self.frame];
+        self.grayView = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.grayView.frame = self.frame;
+        [self.grayView addTarget:self action:@selector(hideTableView) forControlEvents:UIControlEventTouchUpInside];
+        self.grayView.backgroundColor = [UIColor blackColor];
+        [self addSubview:self.grayView];
+        
+        self.tableHolder = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width * 0.1, self.frame.size.height * 0.2, self.frame.size.width * 0.8, self.frame.size.height * 0.6)];
+        self.tableHolder.layer.masksToBounds = true;
+        self.tableHolder.layer.cornerRadius = 8.0f;
+        [self addSubview:self.tableHolder];
+        
+        UILabel *holderTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.tableHolder.frame.size.width, self.tableHolder.frame.size.height * 0.1)];
+        holderTitle.text = @"Draw UI";
+        holderTitle.font = [UIFont fontWithName:@"Helvetica" size:20.0f];
+        holderTitle.adjustsFontSizeToFitWidth = true;
+        holderTitle.layer.masksToBounds = true;
+        holderTitle.textColor = [UIColor whiteColor];
+        holderTitle.backgroundColor = [UIColor colorWithRed: 128.0/255.0 green: 222.0/255.0 blue: 234.0/255.0 alpha: 1.0];
+//        [self.tableHolder addSubview:holderTitle];
+        
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.tableHolder.frame.size.width, self.tableHolder.frame.size.height)];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
-        self.tableView.alpha = 0.0f;
+        self.grayView.alpha = 0.0f;
+        self.tableHolder.alpha = 0.0f;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        [self addSubview:self.tableView];
+        [self.tableHolder addSubview:self.tableView];
+        self.tableView.layer.masksToBounds = true;
+        
+        self.closeTableButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.closeTableButton.frame = CGRectMake(self.tableHolder.frame.origin.x - 25, self.tableHolder.frame.origin.y - 25, 50, 50);
+        [self.closeTableButton addTarget:self action:@selector(hideTableView) forControlEvents:UIControlEventTouchUpInside];
+        [self.closeTableButton setBackgroundImage:[UIImage imageNamed:@"closeIcon.png"] forState:UIControlStateNormal];
+        self.closeTableButton.alpha = 0.0f;
+        [self addSubview:self.closeTableButton];
         
         UITapGestureRecognizer *addUI = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addUI:)];
         addUI.numberOfTouchesRequired = 2;
         [self addGestureRecognizer:addUI];
         
         UITapGestureRecognizer *optionTouch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showEmail:)];
-        optionTouch.numberOfTapsRequired = 3;
+        optionTouch.numberOfTouchesRequired = 3;
         [self addGestureRecognizer:optionTouch];
+        
         self.drawing = false;
         self.canDraw = false;
         
@@ -65,6 +95,50 @@
                               @{@"title":@"Label", @"description":@" - A variably sized amount of static text"},
                               @{@"title":@"Button", @"description":@" - Intercepts touch events and sends an action message to a target object when it's tapped."}];
         
+        self.UIArray = [[NSMutableArray alloc] init];
+        
+        CGSize size = self.bounds.size;
+        
+        CGSize wheelSize = CGSizeMake(size.width * .8, size.width * .8);
+        
+        self.colorPicker = [[ISColorWheel alloc] initWithFrame:CGRectMake(size.width / 2 - wheelSize.width / 2,
+                                                                     size.height * .1,
+                                                                     wheelSize.width,
+                                                                     wheelSize.height)];
+        self.colorPicker.alpha = 0.0f;
+        self.colorPicker.delegate = self;
+       self.colorPicker.continuous = true;
+        [self addSubview:self.colorPicker];
+        
+        self.attributesScrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:self.frame];
+        [self addSubview:self.attributesScrollView];
+        self.attributesScrollView.backgroundColor = [UIColor whiteColor];
+        self.attributesScrollView.alpha = 0.0f;
+        
+        self.attributesView = [[UIView alloc] initWithFrame:CGRectMake(25, CGRectGetMidX(self.frame), self.frame.size.width - 50, self.frame.size.height * 0.5f)];
+        self.attributesView.layer.borderColor = [UIColor grayColor].CGColor;
+        self.attributesView.layer.borderWidth = 1.0f;
+        self.attributesView.alpha = 0.0f;
+        self.attributesView.backgroundColor = [UIColor whiteColor];
+        self.attributesView.layer.cornerRadius = 4.0f;
+        self.attributesView.layer.masksToBounds = true;
+        [self.attributesScrollView addSubview:self.attributesView];
+        
+        self.closeAttributesButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.closeAttributesButton.frame = CGRectMake(0, self.attributesView.frame.origin.y - 25, 50, 50);
+        [self.closeAttributesButton addTarget:self action:@selector(hideAttributesView) forControlEvents:UIControlEventTouchUpInside];
+        [self.closeAttributesButton setBackgroundImage:[UIImage imageNamed:@"closeIcon.png"] forState:UIControlStateNormal];
+        self.closeAttributesButton.alpha = 0.0f;
+        [self addSubview:self.closeAttributesButton];
+        
+        self.titleAttribute = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, self.attributesView.frame.size.width, self.attributesView.frame.size.height * 0.2)];
+        self.titleAttribute.delegate = self;
+        self.titleAttribute.font = [UIFont fontWithName:@"Helvetica" size:20.0f];
+        self.titleAttribute.adjustsFontSizeToFitWidth = true;
+        self.titleAttribute.placeholder = @"Title Text";
+        self.titleAttribute.textAlignment = NSTextAlignmentCenter;
+        self.titleAttribute.returnKeyType = UIReturnKeyDone;
+        [self.attributesView addSubview:self.titleAttribute];
         
     }
     return self;
@@ -373,9 +447,15 @@
     
     self.elementNumber = (int)indexPath.row;
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.tableView.alpha = 0.0f;
+    [self hideTableView];
     self.canDraw = true;
     
+}
+
+-(void)hideTableView{
+    self.tableHolder.alpha = 0.0f;
+    self.grayView.alpha = 0.0f;
+    self.closeTableButton.alpha = 0.0f;
 }
 
 
@@ -385,34 +465,73 @@
 -(void)addUI : (UITapGestureRecognizer *) sender{
     self.drawing = false;
     if(sender.state == UIGestureRecognizerStateEnded){
-        NSLog(@"Can draw");
-        [self bringSubviewToFront:self.tableView];
-        self.tableView.alpha = 1.0f;
+        [self bringSubviewToFront:self.grayView];
+        [self bringSubviewToFront:self.tableHolder];
+        [self bringSubviewToFront:self.closeTableButton];
+        self.grayView.alpha = 0.5f;
+        self.tableHolder.alpha = 1.0f;
+        self.closeTableButton.alpha = 1.0f;
     }
 }
 
 #pragma mark- Add UI Element
 
 -(void)addUIElementWithFrame : (CGRect) uiFrame{
+    
+    float adjustedX = uiFrame.origin.x/self.frame.size.width;
+    float adjustedY = uiFrame.origin.y/self.frame.size.height;
+    float adjustedWidth = uiFrame.size.width/self.frame.size.width;
+    float adjustedHeight = uiFrame.size.height/self.frame.size.height;
+    
+    
+    UITapGestureRecognizer *attributesTouch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAttributesView)];
+    attributesTouch.numberOfTapsRequired = 2;
+    
     switch (self.elementNumber) {
+            
+            //View
         case 0:{
             UIView *drawView = [[UIView alloc] init];
             [drawView setFrame:uiFrame];
             [drawView setBackgroundColor:[UIColor colorWithRed:0.2f green:0.4f blue:0.2f alpha:0.5f]];
+            CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
+            [drawView.backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
+            drawView.tag = self.UIArray.count;
+            [drawView addGestureRecognizer:attributesTouch];
             [self addSubview:drawView];
+            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"view%lu",(unsigned long)self.UIArray.count],
+                                     @"type":@"UIView",
+                                     @"backgroundColor":[NSString stringWithFormat:@"[UIColor colorWithRed:%f green:%f blue:%f alpha:%f]", red,green,blue,alpha],
+                                     @"frame":[NSString stringWithFormat:@"CGRectMake(%f*self.view.frame.size.width,%f*self.view.frame.size.height,%f*self.view.frame.size.width,%f*self.view.frame.size.height)", adjustedX, adjustedY, adjustedWidth, adjustedHeight],
+                                     @"tag":[NSNumber numberWithInteger:self.UIArray.count]};
+            [self.UIArray addObject:uiView];
             break;
         }
+            
+            //Label
         case 1:{
             UILabel *drawLabel = [[UILabel alloc] initWithFrame:uiFrame];
             drawLabel.backgroundColor = [UIColor lightGrayColor];
             drawLabel.text = @"Label";
             drawLabel.alpha = 0.5f;
+            drawLabel.userInteractionEnabled = true;
             drawLabel.textAlignment = NSTextAlignmentCenter;
             drawLabel.textColor = [UIColor whiteColor];
+            drawLabel.tag = self.UIArray.count;
+            [drawLabel addGestureRecognizer:attributesTouch];
             [self addSubview:drawLabel];
+
+            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"label%lu",(unsigned long)self.UIArray.count],
+                                     @"type":@"UILabel",
+                                     @"frame":[NSString stringWithFormat:@"CGRectMake(%f*self.view.frame.size.width,%f*self.view.frame.size.height,%f*self.view.frame.size.width,%f*self.view.frame.size.height)", adjustedX, adjustedY, adjustedWidth, adjustedHeight],
+                                     @"backgroundColor":@"[UIColor colorWithRed:0.2 green:0.3 blue:0.2 alpha:1.0]",
+                                     @"tag":[NSNumber numberWithInteger:self.UIArray.count],
+                                     @"text":@"Label"};
+            [self.UIArray addObject:uiView];
             break;
         }
             
+            //Button
         case 2:{
             UIButton *drawButton = [UIButton buttonWithType:UIButtonTypeSystem];
             [drawButton setTitle:@"Button" forState:UIControlStateNormal];
@@ -422,7 +541,18 @@
             [drawButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
             [drawButton setFrame:uiFrame];
             [drawButton setBackgroundColor:[UIColor colorWithRed:0.33f green:0.20f blue:0.9f alpha:0.5f]];
+            drawButton.tag = self.UIArray.count;
+            [drawButton addGestureRecognizer:attributesTouch];
             [self addSubview:drawButton];
+            
+            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"button%lu",(unsigned long)self.UIArray.count],
+                                     @"type":@"UIButton",
+                                     @"frame":[NSString stringWithFormat:@"CGRectMake(%f*self.view.frame.size.width,%f*self.view.frame.size.height,%f*self.view.frame.size.width,%f*self.view.frame.size.height)", adjustedX, adjustedY, adjustedWidth, adjustedHeight],
+                                     @"backgroundColor":@"[UIColor colorWithRed:0.2 green:0.3 blue:0.2 alpha:1.0]",
+                                     @"text":@"Button",
+                                     @"tag":[NSNumber numberWithInteger:self.UIArray.count]};
+            NSLog(@"%@",uiView);
+            [self.UIArray addObject:uiView];
             break;
         }
         default:
@@ -441,16 +571,17 @@
 
 -(void)createImplementation{
     
-    NSArray *uiArray = @[@{@"name":@"button1",@"type":@"UIButton",@"frame":@"CGRectMake(0,0,100,100)", @"text":@"Hello!"}, @{@"name":@"label2",@"type":@"UILabel",@"frame":@"CGRectMake(100,100,100,100)", @"text":@"Hi!"}];
     NSString *mainUIString = @"";
     
-    for(NSDictionary *ui in uiArray){
+    for(NSDictionary *ui in self.UIArray){
         NSString *type = [ui objectForKey:@"type"];
         NSString *name = [ui objectForKey:@"name"];
         NSString *frame = [ui objectForKey:@"frame"];
+        NSString *backColor = [ui objectForKey:@"backgroundColor"];
         NSString *initLine = [NSString stringWithFormat:@"    %@ *%@ = [[%@ alloc] init];", type, name, type];
         NSString *frameLine = [NSString stringWithFormat:@"    %@.frame = %@;", name, frame];
-        NSString *combinedLines = [NSString stringWithFormat:@"%@\n%@\n", initLine, frameLine];
+        NSString *backgroundColorLine = [NSString stringWithFormat:@"    %@.backgroundColor = %@;", name, backColor];
+        NSString *combinedLines = [NSString stringWithFormat:@"%@\n%@\n%@\n", initLine, frameLine, backgroundColorLine];
 
         
         if([type isEqualToString:@"UILabel"]){
@@ -510,7 +641,7 @@
     [self createImplementation];
 
     NSString *emailTitle = @"InkUp Prototype";
-    NSString *messageBody = @"Here's the InkUp for my prototype";
+    NSString *messageBody = @"Here's the InkUp for my prototype.";
     NSArray *toRecipents = [NSArray arrayWithObject:@""];
     
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
@@ -564,5 +695,50 @@
     [_mainController dismissViewControllerAnimated:YES completion:NULL];
 }
 
+#pragma mark - Attributes
+
+-(void)showAttributesView:(UIView *)sender{
+
+    self.attributesView.frame = CGRectMake(self.attributesView.frame.origin.x, CGRectGetMaxY(self.frame), self.attributesView.frame.size.width, self.attributesView.frame.size.height);
+    self.closeAttributesButton.frame = CGRectMake(0, CGRectGetMaxY(self.frame), self.frame.size.width - 50, self.frame.size.height * 0.5f);
+    self.attributesScrollView.alpha = 1.0f;
+    self.attributesView.alpha = 1.0f;
+    [self bringSubviewToFront:self.attributesView];
+    [self bringSubviewToFront:self.closeAttributesButton];
+    self.closeAttributesButton.alpha = 1.0f;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.attributesView.frame = CGRectMake(25, CGRectGetMidY(self.frame), self.frame.size.width - 50, self.frame.size.height * 0.5f);
+        self.closeAttributesButton.frame = CGRectMake(0, self.attributesView.frame.origin.y - 25, 50, 50);
+    }];
+}
+
+-(void)hideAttributesView{
+    self.attributesScrollView.alpha = 0.0f;
+
+    [UIView animateWithDuration:0.3 animations:^{
+        self.attributesView.frame = CGRectMake(self.attributesView.frame.origin.x, CGRectGetMaxY(self.frame), self.attributesView.frame.size.width, self.attributesView.frame.size.height);
+        self.closeAttributesButton.frame = CGRectMake(0, self.attributesView.frame.origin.y + 25, 50, 50);
+    }];
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return true;
+}
+
+#pragma mark- Color Wheel
+
+- (void)colorWheelDidChangeColor:(ISColorWheel *)colorWheel
+{
+}
+
+-(void)hideColorWheel{
+    
+}
+
+-(void)showColorWheel{
+    
+}
 
 @end

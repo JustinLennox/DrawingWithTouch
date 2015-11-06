@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,14 +12,17 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Screen Shot 2015-11-04 at 3.17.00 AM.png" translatesAutoresizingMaskIntoConstraints="NO" id="Rxh-vJ-gEo">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Screen Shot 2015-11-04 at 3.17.00 AM.png" translatesAutoresizingMaskIntoConstraints="NO" id="Rxh-vJ-gEo">
                         <rect key="frame" x="8" y="10" width="80" height="80"/>
                         <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="E5o-fJ-NXq"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label- A varialby sized amount of static text." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Zch-3e-aEu">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label- A varialby sized amount of static text." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Zch-3e-aEu">
                         <rect key="frame" x="96" y="10" width="216" height="80"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -27,6 +31,15 @@
                     </label>
                 </subviews>
                 <animations/>
+                <constraints>
+                    <constraint firstItem="Rxh-vJ-gEo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="6OV-fm-jNf"/>
+                    <constraint firstItem="Zch-3e-aEu" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="CwL-OW-Qb3"/>
+                    <constraint firstItem="Rxh-vJ-gEo" firstAttribute="top" secondItem="Zch-3e-aEu" secondAttribute="top" id="Egq-R3-xQ6"/>
+                    <constraint firstItem="Zch-3e-aEu" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="IZX-Ta-eW0"/>
+                    <constraint firstItem="Zch-3e-aEu" firstAttribute="leading" secondItem="Rxh-vJ-gEo" secondAttribute="trailing" constant="8" symbolic="YES" id="Nfk-Ad-iS1"/>
+                    <constraint firstItem="Rxh-vJ-gEo" firstAttribute="bottom" secondItem="Zch-3e-aEu" secondAttribute="bottom" id="RdO-R3-5G4"/>
+                    <constraint firstItem="Rxh-vJ-gEo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="UKk-5Q-NFe"/>
+                </constraints>
             </tableViewCellContentView>
             <animations/>
             <inset key="separatorInset" minX="2" minY="0.0" maxX="2" maxY="0.0"/>
