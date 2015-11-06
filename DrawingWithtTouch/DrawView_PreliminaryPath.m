@@ -557,16 +557,16 @@
             [drawView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
             CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
             [drawView.backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
-            drawView.tag = self.UIArray.count;
+            drawView.tag = 100 + self.UIArray.count;
             [drawView addGestureRecognizer:attributesTouch];
             [drawView addGestureRecognizer:panTouch];
             [drawView addGestureRecognizer:longGesture];
             [self addSubview:drawView];
-            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"view%lu",(unsigned long)self.UIArray.count],
+            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"view%lu",drawView.tag],
                                      @"type":@"UIView",
                                      @"backgroundColor":[NSString stringWithFormat:@"[UIColor colorWithRed:%f green:%f blue:%f alpha:%f]", red,green,blue,alpha],
                                      @"frame":[NSString stringWithFormat:@"CGRectMake(%f*self.view.frame.size.width,%f*self.view.frame.size.height,%f*self.view.frame.size.width,%f*self.view.frame.size.height)", adjustedX, adjustedY, adjustedWidth, adjustedHeight],
-                                     @"tag":[NSNumber numberWithInteger:self.UIArray.count]};
+                                     @"tag":[NSNumber numberWithInteger:drawView.tag]};
             [self.UIArray addObject:uiView];
             break;
         }
@@ -582,15 +582,15 @@
             drawLabel.adjustsFontSizeToFitWidth = true;
             drawLabel.textAlignment = NSTextAlignmentCenter;
             drawLabel.textColor = [UIColor whiteColor];
-            drawLabel.tag = self.UIArray.count;
+            drawLabel.tag = 100 + self.UIArray.count;
             [drawLabel addGestureRecognizer:attributesTouch];
             [self addSubview:drawLabel];
 
-            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"label%lu",(unsigned long)self.UIArray.count],
+            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"label%lu",(unsigned long)drawLabel.tag],
                                      @"type":@"UILabel",
                                      @"frame":[NSString stringWithFormat:@"CGRectMake(%f*self.view.frame.size.width,%f*self.view.frame.size.height,%f*self.view.frame.size.width,%f*self.view.frame.size.height)", adjustedX, adjustedY, adjustedWidth, adjustedHeight],
                                      @"backgroundColor":@"[UIColor colorWithRed:0.2 green:0.3 blue:0.2 alpha:1.0]",
-                                     @"tag":[NSNumber numberWithInteger:self.UIArray.count],
+                                     @"tag":[NSNumber numberWithInteger:drawLabel.tag],
                                      @"text":@"Label"};
             [self.UIArray addObject:uiView];
             break;
@@ -608,16 +608,16 @@
             [drawButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
             [drawButton setFrame:uiFrame];
             [drawButton setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
-            drawButton.tag = self.UIArray.count;
+            drawButton.tag = 100 + self.UIArray.count;
             [drawButton addGestureRecognizer:attributesTouch];
             [self addSubview:drawButton];
             
-            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"button%lu",(unsigned long)self.UIArray.count],
+            NSDictionary *uiView = @{@"name":[NSString stringWithFormat:@"button%lu",(unsigned long)drawButton.tag],
                                      @"type":@"UIButton",
                                      @"frame":[NSString stringWithFormat:@"CGRectMake(%f*self.view.frame.size.width,%f*self.view.frame.size.height,%f*self.view.frame.size.width,%f*self.view.frame.size.height)", adjustedX, adjustedY, adjustedWidth, adjustedHeight],
                                      @"backgroundColor":@"[UIColor colorWithRed:0.2 green:0.3 blue:0.2 alpha:1.0]",
                                      @"text":@"Button",
-                                     @"tag":[NSNumber numberWithInteger:self.UIArray.count]};
+                                     @"tag":[NSNumber numberWithInteger:drawButton.tag]};
             NSLog(@"%@",uiView);
             [self.UIArray addObject:uiView];
             break;
@@ -651,10 +651,25 @@
     NSString *mainUIString = @"";
     
     for(NSDictionary *ui in self.UIArray){
+        NSString *tag = [ui objectForKey:@"tag"];
         NSString *type = [ui objectForKey:@"type"];
         NSString *name = [ui objectForKey:@"name"];
-        NSString *frame = [ui objectForKey:@"frame"];
-        NSString *backColor = [ui objectForKey:@"backgroundColor"];
+        NSLog(@"Tag: %f", [tag doubleValue]);
+        self.currentView = [self viewWithTag:[tag doubleValue]];
+        
+        float adjustedX = self.currentView.frame.origin.x/self.frame.size.width;
+        float adjustedY = self.currentView.frame.size.height;
+        float adjustedWidth = self.currentView.frame.size.width/self.frame.size.width;
+        float adjustedHeight = self.currentView.frame.size.height/self.frame.size.height;
+        
+        NSString *frame = [NSString stringWithFormat:@"CGRectMake(%f*self.view.frame.size.width,%f*self.view.frame.size.height,%f*self.view.frame.size.width,%f*self.view.frame.size.height)", adjustedX, adjustedY, adjustedWidth, adjustedHeight];
+        
+        CGFloat red = 0.0, green = 0.0, blue = 0.0, alpha =0.0;
+        [self.currentView.backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
+        
+        NSString *backColor = [NSString stringWithFormat:@"[UIColor colorWithRed:%f green:%f blue:%f alpha:%f]", red,green,blue,alpha];
+
+        
         NSString *initLine = [NSString stringWithFormat:@"    %@ *%@ = [[%@ alloc] init];", type, name, type];
         NSString *frameLine = [NSString stringWithFormat:@"    %@.frame = %@;", name, frame];
         NSString *backgroundColorLine = [NSString stringWithFormat:@"    %@.backgroundColor = %@;", name, backColor];
@@ -662,16 +677,32 @@
 
         
         if([type isEqualToString:@"UILabel"]){
-            if([ui objectForKey:@"text"]){
-                NSString *textLine = [NSString stringWithFormat:@"    %@.text = @\"%@\";", name, [ui objectForKey:@"text"]];
+                UILabel *tempLabel = (UILabel *)self.currentView;
+            NSLog(@"Current View:%@", tempLabel);
+                NSString *textLine = [NSString stringWithFormat:@"    %@.text = @\"%@\";", name, tempLabel.text];
                 combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textLine];
-            }
+            
+                [tempLabel.textColor getRed:&red green:&green blue:&blue alpha:&alpha];
+                NSString *textColor = [NSString stringWithFormat:@"[UIColor colorWithRed:%f green:%f blue:%f alpha:%f]", red,green,blue,alpha];
+                NSString *textColorString = [NSString stringWithFormat:@"    %@.textColor = @\"%@\";", name, textColor];
+            
+                NSString *fontLine = [NSString stringWithFormat:@"    %@.font = [UIFont fontWithName:@\"Helvetica\" size:%f];", name, tempLabel.font.pointSize];
+                combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, fontLine];
+            
         }else if([type isEqualToString:@"UIButton"]){
-            if([ui objectForKey:@"text"]){
-                NSString *textLine = [NSString stringWithFormat:@"    [%@ setTitle:@\"%@\" forState:UIControlStateNormal];", name, [ui objectForKey:@"text"]];
-                combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textLine];
+            UIButton *tempButton = (UIButton *)self.currentView;
+            NSString *textLine = [NSString stringWithFormat:@"    [%@ setTitle:@\"%@\" forState:UIControlStateNormal];", name, tempButton.titleLabel.text];
+            combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textLine];
+            
+            [tempButton.titleLabel.textColor getRed:&red green:&green blue:&blue alpha:&alpha];
+            NSString *textColor = [NSString stringWithFormat:@"[UIColor colorWithRed:%f green:%f blue:%f alpha:%f]", red,green,blue,alpha];
+            NSString *textColorString = [NSString stringWithFormat:@"    %@.titleLabel.textColor = @\"%@\";", name, textColor];
+            combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textColorString];
+            
+            NSString *fontLine = [NSString stringWithFormat:@"    %@.titleLabel.font = [UIFont fontWithName:@\"Helvetica\" size:%f];", name, tempButton.titleLabel.font.pointSize];
+            combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, fontLine];
 
-            }
+
         }
         NSString *finalLine = [NSString stringWithFormat:@"    [self.view addSubview:%@];", name];
         combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, finalLine];
