@@ -20,6 +20,6 @@
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
 @property (strong, nonatomic) MainViewController *mainController;
-
+@property (strong, nonatomic) NSArray *tableUIArray;
 
 @end

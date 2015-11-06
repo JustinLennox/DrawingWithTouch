@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "32A0BC4C1A28710200E4563F"
-               BuildableName = "DrawingWithtTouch.app"
-               BlueprintName = "DrawingWithtTouch"
+               BuildableName = "InkUp.app"
+               BlueprintName = "InkUp"
                ReferencedContainer = "container:InkUp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32A0BC4C1A28710200E4563F"
-            BuildableName = "DrawingWithtTouch.app"
-            BlueprintName = "DrawingWithtTouch"
+            BuildableName = "InkUp.app"
+            BlueprintName = "InkUp"
             ReferencedContainer = "container:InkUp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32A0BC4C1A28710200E4563F"
-            BuildableName = "DrawingWithtTouch.app"
-            BlueprintName = "DrawingWithtTouch"
+            BuildableName = "InkUp.app"
+            BlueprintName = "InkUp"
             ReferencedContainer = "container:InkUp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32A0BC4C1A28710200E4563F"
-            BuildableName = "DrawingWithtTouch.app"
-            BlueprintName = "DrawingWithtTouch"
+            BuildableName = "InkUp.app"
+            BlueprintName = "InkUp"
             ReferencedContainer = "container:InkUp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -61,6 +61,10 @@
         self.drawing = false;
         self.canDraw = false;
         
+        self.tableUIArray = @[@{@"title":@"View", @"description":@" - Represents a rectangular region in which it draws and receives events."},
+                              @{@"title":@"Label", @"description":@" - A variably sized amount of static text"},
+                              @{@"title":@"Button", @"description":@" - Intercepts touch events and sends an action message to a target object when it's tapped."}];
+        
         
     }
     return self;
@@ -323,7 +327,7 @@
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.tableUIArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -344,7 +348,22 @@
     
     UIElementTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(cell == nil){
+        NSDictionary *currentUIDict = [self.tableUIArray objectAtIndex:indexPath.row];
+        UIFont *font_regular=[UIFont fontWithName:@"Helvetica" size:13.0f];
+        UIFont *font_bold=[UIFont fontWithName:@"Helvetica-Bold" size:16.0f];
+        NSString *myString = [NSString stringWithFormat:@"%@%@", [currentUIDict objectForKey:@"title"], [currentUIDict objectForKey:@"description"]];
+        NSString *titleString = [currentUIDict objectForKey:@"title"];
+        NSRange boldedRange = NSMakeRange(0, titleString.length);
+        NSRange notBoldedRange = NSMakeRange(titleString.length, myString.length - titleString.length);
+        
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:myString];
+        [attrString addAttribute:NSFontAttributeName value:font_bold range:boldedRange];
+        [attrString addAttribute:NSFontAttributeName value:font_regular range:notBoldedRange];
+    
         cell = [[UIElementTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell.elementLabel.adjustsFontSizeToFitWidth = true;
+        cell.elementLabel.attributedText = attrString;
+        
     }
     
     return cell;
@@ -377,6 +396,24 @@
 -(void)addUIElementWithFrame : (CGRect) uiFrame{
     switch (self.elementNumber) {
         case 0:{
+            UIView *drawView = [[UIView alloc] init];
+            [drawView setFrame:uiFrame];
+            [drawView setBackgroundColor:[UIColor colorWithRed:0.2f green:0.4f blue:0.2f alpha:0.5f]];
+            [self addSubview:drawView];
+            break;
+        }
+        case 1:{
+            UILabel *drawLabel = [[UILabel alloc] initWithFrame:uiFrame];
+            drawLabel.backgroundColor = [UIColor lightGrayColor];
+            drawLabel.text = @"Label";
+            drawLabel.alpha = 0.5f;
+            drawLabel.textAlignment = NSTextAlignmentCenter;
+            drawLabel.textColor = [UIColor whiteColor];
+            [self addSubview:drawLabel];
+            break;
+        }
+            
+        case 2:{
             UIButton *drawButton = [UIButton buttonWithType:UIButtonTypeSystem];
             [drawButton setTitle:@"Button" forState:UIControlStateNormal];
             drawButton.adjustsImageWhenHighlighted = true;
@@ -387,16 +424,6 @@
             [drawButton setBackgroundColor:[UIColor colorWithRed:0.33f green:0.20f blue:0.9f alpha:0.5f]];
             [self addSubview:drawButton];
             break;
-        }
-            
-        case 1:{
-            UILabel *drawLabel = [[UILabel alloc] initWithFrame:uiFrame];
-            drawLabel.backgroundColor = [UIColor lightGrayColor];
-            drawLabel.text = @"Label";
-            drawLabel.alpha = 0.5f;
-            drawLabel.textAlignment = NSTextAlignmentCenter;
-            drawLabel.textColor = [UIColor whiteColor];
-            [self addSubview:drawLabel];
         }
         default:
             break;
@@ -421,16 +448,25 @@
         NSString *type = [ui objectForKey:@"type"];
         NSString *name = [ui objectForKey:@"name"];
         NSString *frame = [ui objectForKey:@"frame"];
-        NSString *line1 = [NSString stringWithFormat:@"    %@ *%@ = [[%@ alloc] init];", type, name, type];
-        NSString *line2 = [NSString stringWithFormat:@"    %@.frame = %@;", name, frame];
-        NSString *line3 = @"";
-        if([type isEqualToString:@"UILabel"] && [ui objectForKey:@"text"]){
-            line3 = [NSString stringWithFormat:@"    %@.text = @\"%@\";", name, [ui objectForKey:@"text"]];
-        }else if([type isEqualToString:@"UIButton"] && [ui objectForKey:@"text"]){
-            line3 = [NSString stringWithFormat:@"    [%@ setTitle:@\"%@\" forState:UIControlStateNormal];", name, [ui objectForKey:@"text"]];
+        NSString *initLine = [NSString stringWithFormat:@"    %@ *%@ = [[%@ alloc] init];", type, name, type];
+        NSString *frameLine = [NSString stringWithFormat:@"    %@.frame = %@;", name, frame];
+        NSString *combinedLines = [NSString stringWithFormat:@"%@\n%@\n", initLine, frameLine];
+
+        
+        if([type isEqualToString:@"UILabel"]){
+            if([ui objectForKey:@"text"]){
+                NSString *textLine = [NSString stringWithFormat:@"    %@.text = @\"%@\";", name, [ui objectForKey:@"text"]];
+                combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textLine];
+            }
+        }else if([type isEqualToString:@"UIButton"]){
+            if([ui objectForKey:@"text"]){
+                NSString *textLine = [NSString stringWithFormat:@"    [%@ setTitle:@\"%@\" forState:UIControlStateNormal];", name, [ui objectForKey:@"text"]];
+                combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, textLine];
+
+            }
         }
-        NSString *line4 = [NSString stringWithFormat:@"    [self.view addSubview:%@];", name];
-        NSString *combinedLines = [NSString stringWithFormat:@"%@\n%@\n%@\n%@\n", line1, line2, line3, line4];
+        NSString *finalLine = [NSString stringWithFormat:@"    [self.view addSubview:%@];", name];
+        combinedLines = [NSString stringWithFormat:@"%@%@\n", combinedLines, finalLine];
         mainUIString = [NSString stringWithFormat:@"%@\n\n%@",mainUIString,combinedLines];
     }
     
