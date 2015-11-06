@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "UIElementTableViewCell.h"
+#import <MessageUI/MessageUI.h>
 
-@interface DrawView_PreliminaryPath : UIView <UITableViewDataSource, UITableViewDelegate>
+@class MainViewController;
+
+@interface DrawView_PreliminaryPath : UIView <UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (nonatomic) BOOL drawing;
 @property (nonatomic) BOOL canDraw;
 @property (nonatomic) int elementNumber;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
+@property (strong, nonatomic) MainViewController *mainController;
+
 
 @end

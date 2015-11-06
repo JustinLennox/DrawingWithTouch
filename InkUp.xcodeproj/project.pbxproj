@@ -10,7 +10,7 @@
 		325AC40B1B37F2B3004A540B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 325AC40A1B37F2B3004A540B /* libz.dylib */; };
 		32A0BC521A28710200E4563F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A0BC511A28710200E4563F /* main.m */; };
 		32A0BC551A28710200E4563F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A0BC541A28710200E4563F /* AppDelegate.m */; };
-		32A0BC581A28710200E4563F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A0BC571A28710200E4563F /* ViewController.m */; };
+		32A0BC581A28710200E4563F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A0BC571A28710200E4563F /* MainViewController.m */; };
 		32A0BC5B1A28710200E4563F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32A0BC591A28710200E4563F /* Main.storyboard */; };
 		32A0BC5D1A28710200E4563F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32A0BC5C1A28710200E4563F /* Images.xcassets */; };
 		32A0BC601A28710300E4563F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A0BC5E1A28710200E4563F /* LaunchScreen.xib */; };
@@ -29,6 +29,9 @@
 		D02F589A1BE7042700882DA9 /* UIElementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D02F58981BE7042700882DA9 /* UIElementTableViewCell.m */; };
 		D02F589B1BE7042700882DA9 /* UIElementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02F58991BE7042700882DA9 /* UIElementTableViewCell.xib */; };
 		D02F589D1BE7059C00882DA9 /* WILLCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D02F589C1BE7059C00882DA9 /* WILLCore.framework */; };
+		D034BE5B1BEC8C500005E105 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D034BE5A1BEC8C500005E105 /* MessageUI.framework */; };
+		D034BE5E1BEC9A4A0005E105 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D034BE5D1BEC9A4A0005E105 /* ViewController.m */; };
+		D0421A6F1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = D0421A6E1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +41,8 @@
 		32A0BC511A28710200E4563F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32A0BC531A28710200E4563F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		32A0BC541A28710200E4563F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		32A0BC561A28710200E4563F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		32A0BC571A28710200E4563F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		32A0BC561A28710200E4563F /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		32A0BC571A28710200E4563F /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		32A0BC5A1A28710200E4563F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		32A0BC5C1A28710200E4563F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		32A0BC5F1A28710300E4563F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -66,6 +69,10 @@
 		D02F58981BE7042700882DA9 /* UIElementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIElementTableViewCell.m; sourceTree = "<group>"; };
 		D02F58991BE7042700882DA9 /* UIElementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UIElementTableViewCell.xib; sourceTree = "<group>"; };
 		D02F589C1BE7059C00882DA9 /* WILLCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WILLCore.framework; sourceTree = "<group>"; };
+		D034BE5A1BEC8C500005E105 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		D034BE5C1BEC9A4A0005E105 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D034BE5D1BEC9A4A0005E105 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D0421A6E1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2015-11-04 at 3.17.00 AM.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D034BE5B1BEC8C500005E105 /* MessageUI.framework in Frameworks */,
 				325AC40B1B37F2B3004A540B /* libz.dylib in Frameworks */,
 				D02F589D1BE7059C00882DA9 /* WILLCore.framework in Frameworks */,
 				32A0BC781A28748A00E4563F /* libc++.dylib in Frameworks */,
@@ -85,6 +93,7 @@
 		328DA06419DA99F50044AFAA = {
 			isa = PBXGroup;
 			children = (
+				D034BE5A1BEC8C500005E105 /* MessageUI.framework */,
 				325AC40A1B37F2B3004A540B /* libz.dylib */,
 				32A0BC771A28748A00E4563F /* libc++.dylib */,
 				D02F589C1BE7059C00882DA9 /* WILLCore.framework */,
@@ -104,6 +113,18 @@
 		32A0BC4E1A28710200E4563F /* DrawingWithtTouch */ = {
 			isa = PBXGroup;
 			children = (
+				32A0BC591A28710200E4563F /* Main.storyboard */,
+				32A0BC531A28710200E4563F /* AppDelegate.h */,
+				32A0BC541A28710200E4563F /* AppDelegate.m */,
+				32A0BC561A28710200E4563F /* MainViewController.h */,
+				32A0BC571A28710200E4563F /* MainViewController.m */,
+				32A0BC831A287AC500E4563F /* DrawView_PreliminaryPath.h */,
+				32A0BC841A287AC500E4563F /* DrawView_PreliminaryPath.m */,
+				D034BE5C1BEC9A4A0005E105 /* ViewController.h */,
+				D034BE5D1BEC9A4A0005E105 /* ViewController.m */,
+				D02F58971BE7042700882DA9 /* UIElementTableViewCell.h */,
+				D02F58981BE7042700882DA9 /* UIElementTableViewCell.m */,
+				D02F58991BE7042700882DA9 /* UIElementTableViewCell.xib */,
 				32A0BC731A28741500E4563F /* DrawView_InkEngineSetup.h */,
 				32A0BC741A28741500E4563F /* DrawView_InkEngineSetup.m */,
 				32A0BC7A1A28792500E4563F /* DrawView_BuildingPaths.h */,
@@ -112,20 +133,10 @@
 				32A0BC7E1A28799C00E4563F /* DrawView_Smoothing.m */,
 				32A0BC801A287A1A00E4563F /* DrawView_TransparentStrokes.h */,
 				32A0BC811A287A1A00E4563F /* DrawView_TransparentStrokes.m */,
-				32A0BC831A287AC500E4563F /* DrawView_PreliminaryPath.h */,
-				32A0BC841A287AC500E4563F /* DrawView_PreliminaryPath.m */,
-				D02F58971BE7042700882DA9 /* UIElementTableViewCell.h */,
-				D02F58981BE7042700882DA9 /* UIElementTableViewCell.m */,
-				D02F58991BE7042700882DA9 /* UIElementTableViewCell.xib */,
 				32A0BC861A287AEC00E4563F /* DrawView_ParticleBrush.h */,
 				32A0BC871A287AEC00E4563F /* DrawView_ParticleBrush.m */,
 				32AC77291AC0760900E2A1EB /* DrawView_GenerateBezierPath.h */,
 				32AC772A1AC0760900E2A1EB /* DrawView_GenerateBezierPath.m */,
-				32A0BC531A28710200E4563F /* AppDelegate.h */,
-				32A0BC541A28710200E4563F /* AppDelegate.m */,
-				32A0BC561A28710200E4563F /* ViewController.h */,
-				32A0BC571A28710200E4563F /* ViewController.m */,
-				32A0BC591A28710200E4563F /* Main.storyboard */,
 				32A0BC5C1A28710200E4563F /* Images.xcassets */,
 				32A0BC5E1A28710200E4563F /* LaunchScreen.xib */,
 				32A0BC4F1A28710200E4563F /* Supporting Files */,
@@ -136,6 +147,7 @@
 		32A0BC4F1A28710200E4563F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0421A6E1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png */,
 				32A0BC891A287B3200E4563F /* fill.png */,
 				32A0BC8A1A287B3200E4563F /* fill@2x.png */,
 				32A0BC8B1A287B3200E4563F /* shape.png */,
@@ -179,7 +191,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 328DA06819DA99F50044AFAA /* Build configuration list for PBXProject "DrawingWithTouch" */;
+			buildConfigurationList = 328DA06819DA99F50044AFAA /* Build configuration list for PBXProject "InkUp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -209,6 +221,7 @@
 				32A0BC601A28710300E4563F /* LaunchScreen.xib in Resources */,
 				32A0BC8E1A287B3200E4563F /* fill@2x.png in Resources */,
 				D02F589B1BE7042700882DA9 /* UIElementTableViewCell.xib in Resources */,
+				D0421A6F1BE9F69E0017FB76 /* Screen Shot 2015-11-04 at 3.17.00 AM.png in Resources */,
 				32A0BC5D1A28710200E4563F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,12 +233,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32A0BC581A28710200E4563F /* ViewController.m in Sources */,
+				32A0BC581A28710200E4563F /* MainViewController.m in Sources */,
 				32AC772B1AC0760900E2A1EB /* DrawView_GenerateBezierPath.m in Sources */,
 				32A0BC551A28710200E4563F /* AppDelegate.m in Sources */,
 				32A0BC821A287A1A00E4563F /* DrawView_TransparentStrokes.m in Sources */,
 				32A0BC7F1A28799C00E4563F /* DrawView_Smoothing.m in Sources */,
 				32A0BC751A28741500E4563F /* DrawView_InkEngineSetup.m in Sources */,
+				D034BE5E1BEC9A4A0005E105 /* ViewController.m in Sources */,
 				32A0BC521A28710200E4563F /* main.m in Sources */,
 				D02F589A1BE7042700882DA9 /* UIElementTableViewCell.m in Sources */,
 				32A0BC851A287AC500E4563F /* DrawView_PreliminaryPath.m in Sources */,
@@ -289,6 +303,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,6 +329,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = co;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -340,6 +356,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -358,6 +375,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = co;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -368,7 +386,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		328DA06819DA99F50044AFAA /* Build configuration list for PBXProject "DrawingWithTouch" */ = {
+		328DA06819DA99F50044AFAA /* Build configuration list for PBXProject "InkUp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				328DA06919DA99F50044AFAA /* Debug */,

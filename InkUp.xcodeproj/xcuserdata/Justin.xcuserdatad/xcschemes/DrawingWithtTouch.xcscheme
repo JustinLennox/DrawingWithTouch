@@ -17,7 +17,7 @@
                BlueprintIdentifier = "32A0BC4C1A28710200E4563F"
                BuildableName = "DrawingWithtTouch.app"
                BlueprintName = "DrawingWithtTouch"
-               ReferencedContainer = "container:DrawingWithTouch.xcodeproj">
+               ReferencedContainer = "container:InkUp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "32A0BC4C1A28710200E4563F"
             BuildableName = "DrawingWithtTouch.app"
             BlueprintName = "DrawingWithtTouch"
-            ReferencedContainer = "container:DrawingWithTouch.xcodeproj">
+            ReferencedContainer = "container:InkUp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "32A0BC4C1A28710200E4563F"
             BuildableName = "DrawingWithtTouch.app"
             BlueprintName = "DrawingWithtTouch"
-            ReferencedContainer = "container:DrawingWithTouch.xcodeproj">
+            ReferencedContainer = "container:InkUp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "32A0BC4C1A28710200E4563F"
             BuildableName = "DrawingWithtTouch.app"
             BlueprintName = "DrawingWithtTouch"
-            ReferencedContainer = "container:DrawingWithTouch.xcodeproj">
+            ReferencedContainer = "container:InkUp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,8 +1,8 @@
 //
 //  ViewController.h
-//  DrawingWithtTouch
+//  InkUp
 //
-//  Created by Plamen Petkov on 11/28/14.
+//  Created by Justin Lennox on 11/6/15.
 //
 //
 
@@ -10,11 +10,4 @@
 
 @interface ViewController : UIViewController
 
-- (IBAction) partButtonPressed:(id)sender;
-
-- (IBAction) back:(id)sender;
-@property (nonatomic) IBOutlet UIButton *backButton;
-
-
 @end
-
